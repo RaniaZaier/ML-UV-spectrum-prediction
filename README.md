@@ -1,9 +1,12 @@
 # Prediction of UV-Visible Spectra from GPAW Data using Machine Learning
 # Project Description
 
-This project aims to predict the UV-visible absorption spectrum of a molecular-plasmonic system using machine learning techniques.
-The target system's TDDFT simulation is not available, so we rely on other systems with completed simulations to build a predictive model.
-Our approach is based on supervised learning using descriptors extracted from GPAW calculations (e.g., HOMO/LUMO levels, Fermi energy, electron count, geometric descriptors, etc.), excluding any TDDFT-related features for the target system.
+This project aims to predict the UV-visible absorption spectrum of molecular-plasmonic systems using machine learning techniques.
+Our database contains 130 systems, for which full TDDFT simulations are available. However, to simulate a realistic prediction scenario, we treat each system in turn as a target with unknown spectrum, and predict its UV-visible absorption spectrum using the remaining systems as training data.
+The machine learning models are trained using ground-state descriptors extracted from GPAW calculations (e.g., HOMO/LUMO levels, Fermi energy, number of electrons, geometric descriptors, DOS, etc.), while TDDFT-specific features (e.g., excitation energies or oscillator strengths) are excluded from the target system during training.
+The predicted spectra are then compared to the true TDDFT results to assess model performance.
+For more information about the systems and their design, check our publication:
+**DOI: 10.1039/D4NR01198H**
 
 # Data
 Source: GPAW simulation outputs (ground state .gpw, unoccupied .gpw, and TDDFT .gpw)
