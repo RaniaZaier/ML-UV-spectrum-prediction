@@ -11,11 +11,10 @@ For more information about the systems and their design, check our publication:
 # Data
 Source: GPAW simulation outputs (ground state .gpw, unoccupied .gpw, and TDDFT .gpw)
 Each entry includes:
-
-- System ID
+- Systems ID
 - Geometry-based & Physical descriptors (HOMO, LUMO, gap, number of electrons, etc.)
 - PDOS spectra.
-- TDDFT spectrum (peaks + intensities) — available only for training systems
+- TDDFT Uv-Vis spectrua.
 
 # Objective
 Predict the UV-visible spectrum of a target system using its ground-state properties only, without any TDDFT features.
@@ -29,15 +28,19 @@ We evaluate and compare the following regression models:
 - XGBoost Regressor
 
 # Training Strategy
-- Training data: all systems except the target system
-- Test data: the target system, for which we simulate the prediction of its UV spectrum
-The true TDDFT spectrum of the target system is used only for performance evaluation.
+- For each target system:
+  - Training data: all systems except the target system.
+  - Test data: the target system, for which we simulate the prediction of its UV spectrum.
+-The true TDDFT spectrum of the target system is used only for evaluation.
 
 # Evaluation Metrics
-
 MSE: Mean Squared Error
 MAE: Mean Absolute Error
 R² Score: Coefficient of determination
+
+# Cross-Validation
+Using leave-one-out cross-validation (LOOCV), each system is predicted by training the model on all other systems.
+The predicted spectrum is then compared to the real TDDFT spectrum to evaluate accuracy across the dataset.
 
 # Visualization
 We compare predicted vs. true UV-visible spectrum using matplotlib.
@@ -45,4 +48,4 @@ We compare predicted vs. true UV-visible spectrum using matplotlib.
 # Added Files
 - extract_features.npy: Script to extract descriptors and generate the CSV dataset.
 - train_and_predict.npy: Script that loads the dataset, trains ML models, predicts the target spectrum, and evaluates performance.
-- The dataset was built directly while performing the simulation, but an exemple is given for one system.
+- An example dataset for one system is included to demonstrate format and usage.
