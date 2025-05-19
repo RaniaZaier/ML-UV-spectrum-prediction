@@ -31,20 +31,21 @@ We evaluate and compare the following regression models:
 - For each target system:
   - Training data: all systems except the target system.
   - Test data: the target system, for which we simulate the prediction of its UV spectrum.
--The true TDDFT spectrum of the target system is used only for evaluation.
+- The true TDDFT spectrum of the target system is used only for evaluation.
 
 # Evaluation Metrics
-MSE: Mean Squared Error
-MAE: Mean Absolute Error
-R² Score: Coefficient of determination
+- MSE: Mean Squared Error
+- MAE: Mean Absolute Error
+- R² Score: Coefficient of determination
 
 # Cross-Validation
-Using leave-one-out cross-validation (LOOCV), each system is predicted by training the model on all other systems.
-The predicted spectrum is then compared to the real TDDFT spectrum to evaluate accuracy across the dataset.
+- Using leave-one-out cross-validation (LOOCV), each system is predicted by training the model on all other systems.
+- The predicted spectrum is then compared to the real TDDFT spectrum to evaluate accuracy across the dataset.
 
 # Visualization
-We compare predicted vs. true UV-visible spectrum using matplotlib.
-
+- Plot of predicted vs. true UV-visible spectra using matplotlib.
+- Machine learning analysis including feature correlation, cross-validation results, performance metrics (MSE, MAE, R² score) to quantify prediction accuracy, etc.
+  
 # Added Files
 - extract_features.npy: Script to extract descriptors and generate the CSV dataset.
 - train_and_predict.npy: Script that loads the dataset, trains ML models, predicts the target spectrum, and evaluates performance.
