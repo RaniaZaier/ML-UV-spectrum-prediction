@@ -24,11 +24,9 @@ Predict the UV-visible spectrum of a target system using its ground-state proper
 # ML Models Used
 We evaluate and compare the following regression models:
 
-- Random Forest Regressor
-- Support Vector Machine (SVR)
-- K-Nearest Neighbors (KNN)
 - Linear Regression
-- Decision Tree Regressor
+- Random Forest Regressor
+- K-Nearest Neighbors (KNN)
 - XGBoost Regressor
 
 # Training Strategy
