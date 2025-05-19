@@ -3,19 +3,18 @@
 
 This project aims to predict the UV-visible absorption spectrum of molecular-plasmonic systems using machine learning techniques.
 Our database contains 130 systems, for which full TDDFT simulations are available. However, to simulate a realistic prediction scenario, we treat each system in turn as a target with unknown spectrum, and predict its UV-visible absorption spectrum using the remaining systems as training data.
-The machine learning models are trained using ground-state descriptors extracted from GPAW calculations (e.g., HOMO/LUMO levels, Fermi energy, number of electrons, geometric descriptors, DOS, etc.), while TDDFT-specific features (e.g., excitation energies or oscillator strengths) are excluded from the target system during training.
-The predicted spectra are then compared to the true TDDFT results to assess model performance.
+The machine learning models are trained using ground-state descriptors extracted from GPAW calculations (e.g., HOMO/LUMO levels, Fermi energy, number of electrons, geometric descriptors, PDOS, etc.).
+The predicted spectrum is then compared to the true TDDFT results to assess model performance.
 For more information about the systems and their design, check our publication:
 **DOI: 10.1039/D4NR01198H**
 
 # Data
 Source: GPAW simulation outputs (ground state .gpw, unoccupied .gpw, and TDDFT .gpw)
-Stored as a CSV file: uv_database.csv
 Each entry includes:
 
 - System ID
-- Physical descriptors (HOMO, LUMO, gap, number of electrons, etc.)
-- Geometry-based descriptors (distance to nanoparticle, number of neighbors, etc.)
+- Geometry-based & Physical descriptors (HOMO, LUMO, gap, number of electrons, etc.)
+- PDOS spectra.
 - TDDFT spectrum (peaks + intensities) — available only for training systems
 
 # Objective
@@ -30,13 +29,8 @@ We evaluate and compare the following regression models:
 - XGBoost Regressor
 
 # Training Strategy
-- Input features: descriptors like HOMO, LUMO, gap, n_electrons, etc.
-(TDDFT-related features like excitation energy or oscillator strength are excluded for the target system)
-
 - Training data: all systems except the target system
-
 - Test data: the target system, for which we simulate the prediction of its UV spectrum
-
 The true TDDFT spectrum of the target system is used only for performance evaluation.
 
 # Evaluation Metrics
@@ -51,4 +45,4 @@ We compare predicted vs. true UV-visible spectrum using matplotlib.
 # Added Files
 - extract_features.npy: Script to extract descriptors and generate the CSV dataset.
 - train_and_predict.npy: Script that loads the dataset, trains ML models, predicts the target spectrum, and evaluates performance.
-- uv_database.csv: CSV dataset containing descriptors and spectra.
+- The dataset was built directly while performing the simulation, but an exemple is given for one system.
