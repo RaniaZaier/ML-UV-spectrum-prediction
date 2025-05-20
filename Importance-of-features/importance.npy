@@ -1,0 +1,31 @@
+## part of the code to plot the importante features using the selected model##
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.multioutput import MultiOutputRegressor
+import matplotlib.cm as cm
+
+model = MultiOutputRegressor(RandomForestRegressor())
+model.fit(X_train, Y_train)
+
+# Compute mean and std of importances across all output models
+importances = np.mean([est.feature_importances_ for est in model.estimators_], axis=0)
+#std = np.std([est.feature_importances_ for est in model.estimators_], axis=0)
+indices = np.argsort(importances)[::-1]  # Sort in descending order
+# Optional: names of your features
+feature_names = np.array("gap,...".split(","))  # Replace with your list of feature names
+# Plot
+plt.figure(figsize=(10, 6))
+plt.title("Feature Importances") # (Averaged over Outputs)")
+# Normalize importances for colormap
+normalized = (importances[indices] - np.min(importances[indices])) / (np.max(importances[indices]) - np.min(importances[indices]))
+colors = cm.viridis(normalized)  # Use viridis gradient
+bars = plt.bar(range(len(importances)), importances[indices],
+               color=colors, align="center", alpha=0.9)
+# Feature names on x-axis
+plt.xticks(range(len(importances)), feature_names[indices], rotation=45, ha='right')
+plt.ylabel("Mean Importance")
+plt.tight_layout()
+plt.grid(True, linestyle='--', alpha=0.4)
+plt.savefig("importance.png")
+plt.show()
