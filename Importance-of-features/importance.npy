@@ -27,5 +27,5 @@ plt.xticks(range(len(importances)), feature_names[indices], rotation=45, ha='rig
 plt.ylabel("Mean Importance")
 plt.tight_layout()
 plt.grid(True, linestyle='--', alpha=0.4)
-plt.savefig("importance.png")
+plt.savefig("Importance.png")
 plt.show()
