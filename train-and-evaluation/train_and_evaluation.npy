@@ -1,1 +1,52 @@
+##Part of the code to train and evaluat your model Real vs Pred##
+# ---  train & prediction ---
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.multioutput import MultiOutputRegressor
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+# ---  train ---
+model = MultiOutputRegressor(RandomForestRegressor())
+model.fit(X_train, Y_train)
+Y_pred = model.predict(X_test)[0]
+
+# ---  evaluation ---
+mse = mean_squared_error(Y_test, Y_pred)
+mae = mean_absolute_error(Y_test, Y_pred)
+r2 = r2_score(Y_test, Y_pred)
+print(f"Évaluation de la prédiction pour le système '{target_system}':")
+print(f"  MSE (erreur quadratique moyenne): {mse:.5f}")
+print(f"  MAE (erreur absolue moyenne)     : {mae:.5f}")
+print(f"  R² (coefficient de détermination): {r2:.5f}")
+plt.figure(figsize=(8, 6))
+plt.scatter(Y_pred, Y_test, color='blue', alpha=0.6,
+            label=f'Prédiction vs Réel\nMSE = {mse:.3f}\nMAE = {mae:.3f}\nR² = {r2:.3f}')
+lims = [
+    np.min([Y_pred.min(), Y_test.min()]),
+    np.max([Y_pred.max(), Y_test.max()])
+]
+plt.plot(lims, lims, 'r--', label='Référence (y = x)')
+plt.xlabel('Predicted values')
+plt.ylabel('Real values')
+#plt.title(f"Comparaison prédiction vs référence\n({target_system})")
+plt.title("Comparison: Prediction vs Reference")
+plt.legend(loc='upper left')
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("Compare_test_pred.png", dpi=300)
+plt.show()
+
+# --- plots Real & Train ---
+plt.figure(figsize=(9, 5))
+plt.plot(energies_test, Y_pred, label="Predicted spectrum", linestyle='--', color='blue')
+plt.plot(energies_test, Y_test, label="Real spectrum", color='green')
+plt.xlabel("Energy (eV)")
+plt.xlim(2.5,4.5)
+plt.ylim(0,450)
+plt.ylabel("Intensity (a.u.)")
+plt.title('Real vs Predicted spectrum')
+plt.legend()
+plt.savefig("Predicted_Spectrum.png")
+plt.show()
 
