@@ -1,0 +1,23 @@
+##Part of the code to load and plot the correlation between the descriptors used for our ML models##
+# --- Correlation between descriptors ---
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+# Load descriptor data
+df = pd.read_csv("data.csv")
+all_systems = df.iloc[:, 0].tolist()  # first column = system names
+features_matrix = df.iloc[:, 1:-1].values  # all columns except system and target
+feature_names = df.columns[1:-1]  # descriptor names
+df_features = pd.DataFrame(features_matrix, columns=feature_names, index=all_systems)
+
+# Compute correlation matrix
+corr = df_features.corr()
+
+# Plot the heatmap
+plt.figure(figsize=(9, 7))
+sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", square=True)
+plt.title("Correlation between descriptors")
+plt.tight_layout()
+plt.savefig("descriptors_corr.png")
+plt.show()
