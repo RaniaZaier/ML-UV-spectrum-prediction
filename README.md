@@ -47,6 +47,17 @@ We evaluate and compare the following regression models:
 - Machine learning analysis including feature correlation, cross-validation results, performance metrics (MSE, MAE, R² score) to quantify prediction accuracy, etc.
   
 # Added Files
-- extract_features.npy: Script to extract descriptors and generate the CSV dataset.
-- train_and_predict.npy: Script that loads the dataset, trains ML models, predicts the target spectrum, and evaluates performance.
-- An example dataset for one system is included to demonstrate format and usage.
+- Folder: Descriptors
+  - descriptors.npy : Stores the correlation matrix between the descriptors used in the machine learning models.
+  - Descritors plot : A visual matrix (figure) showing the correlations between features.
+
+- Folder: importance
+  - importance.npy : Contains the computed feature importances used to evaluate the relevance of each descriptor in the machine learning models.
+  - Importance Plot : A figure displaying the importance of each feature as determined by the ML model.
+
+- Folder: train-and-predict
+  - train_and_predict.npy : A Python script that loads the dataset, trains multiple ML models, makes predictions on the UV-Vis spectrum, and evaluates performance.
+  - Predicted vs Real Values Plot : A figure comparing the predicted and actual values to assess model accuracy.
+  - Spectra Plot : A visual comparison between predicted and real UV-Vis spectra.
+
+- Summary Figure : A comprehensive figure comparing the performance of the four ML models tested, evaluating their efficiency in predicting the UV-Vis absorption spectrum.
